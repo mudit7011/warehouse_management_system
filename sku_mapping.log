@@ -1742,3 +1742,76 @@
 2025-08-06 00:35:07,219 - INFO - Loaded 0 predefined mappings
 2025-08-06 00:35:07,361 - WARNING -  * Debugger is active!
 2025-08-06 00:35:07,366 - INFO -  * Debugger PIN: 482-049-335
+2025-08-06 00:37:17,781 - INFO - Loaded 0 predefined mappings
+2025-08-06 00:37:17,811 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.29.205:5001
+2025-08-06 00:37:17,812 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-06 00:37:17,812 - INFO -  * Restarting with stat
+2025-08-06 00:37:18,173 - INFO - Loaded 0 predefined mappings
+2025-08-06 00:37:18,320 - WARNING -  * Debugger is active!
+2025-08-06 00:37:18,327 - INFO -  * Debugger PIN: 482-049-335
+2025-08-06 00:37:20,708 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:20] "GET / HTTP/1.1" 200 -
+2025-08-06 00:37:20,757 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:20] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:37:20,776 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:20] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:37:22,889 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:22] "GET / HTTP/1.1" 200 -
+2025-08-06 00:37:22,906 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:22] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:37:22,907 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:22] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:37:25,645 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:25] "GET / HTTP/1.1" 200 -
+2025-08-06 00:37:25,660 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:25] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:37:25,665 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:25] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:37:26,629 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:26] "GET /upload HTTP/1.1" 200 -
+2025-08-06 00:37:26,647 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:26] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:37:26,648 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:26] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:37:35,870 - INFO - Using column 'SKU' as SKU column
+2025-08-06 00:37:35,874 - INFO - Generated 7 intelligent mapping categories
+2025-08-06 00:37:35,874 - INFO -   CSTE_BRAND_PRODUCTS: 19 SKUs
+2025-08-06 00:37:35,874 - INFO -   ENTERTAINMENT_PRODUCTS: 5 SKUs
+2025-08-06 00:37:35,874 - INFO -   LONG_IDENTIFIER_CODES: 13 SKUs
+2025-08-06 00:37:35,874 - INFO -   SUNGLASSES_CATEGORY: 3 SKUs
+2025-08-06 00:37:35,874 - INFO -   SHORT_MIXED_CODES: 1 SKUs
+2025-08-06 00:37:35,874 - INFO -   SYSTEM_GENERATED_IDS: 2 SKUs
+2025-08-06 00:37:35,875 - INFO -   FUSKED_BRAND_PRODUCTS: 1 SKUs
+2025-08-06 00:37:35,879 - INFO - Processed 110 records with 100.0% success rate
+2025-08-06 00:37:35,926 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:35] "POST /upload HTTP/1.1" 200 -
+2025-08-06 00:37:35,938 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:35] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:37:35,945 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:35] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:37:49,612 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:49] "GET /mapping-summary HTTP/1.1" 200 -
+2025-08-06 00:37:55,390 - INFO - 127.0.0.1 - - [06/Aug/2025 00:37:55] "GET /ai-chat HTTP/1.1" 200 -
+2025-08-06 00:38:04,927 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 00:38:05,528 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 00:38:05,538 - INFO - 127.0.0.1 - - [06/Aug/2025 00:38:05] "POST /api/ai-query HTTP/1.1" 200 -
+2025-08-06 00:38:13,228 - INFO - 127.0.0.1 - - [06/Aug/2025 00:38:13] "POST /api/sql-query HTTP/1.1" 200 -
+2025-08-06 00:38:41,095 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 00:38:41,604 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 00:38:41,611 - INFO - 127.0.0.1 - - [06/Aug/2025 00:38:41] "POST /api/ai-query HTTP/1.1" 200 -
+2025-08-06 00:38:50,881 - INFO - 127.0.0.1 - - [06/Aug/2025 00:38:50] "POST /api/sql-query HTTP/1.1" 200 -
+2025-08-06 00:39:00,954 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:00] "GET / HTTP/1.1" 200 -
+2025-08-06 00:39:00,975 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:00] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:39:00,979 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:39:03,781 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:03] "GET /mappings HTTP/1.1" 200 -
+2025-08-06 00:39:13,826 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:13] "GET / HTTP/1.1" 200 -
+2025-08-06 00:39:13,848 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:13] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:39:13,850 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:13] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:39:15,577 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:15] "GET /upload HTTP/1.1" 200 -
+2025-08-06 00:39:15,601 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:15] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:39:15,602 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:15] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:39:24,390 - INFO - Using column 'SKU' as SKU column
+2025-08-06 00:39:24,391 - INFO - Generated 7 intelligent mapping categories
+2025-08-06 00:39:24,391 - INFO -   NUMERIC_PRODUCT_TYPE_32: 2 SKUs
+2025-08-06 00:39:24,391 - INFO -   LONG_IDENTIFIER_CODES: 10 SKUs
+2025-08-06 00:39:24,392 - INFO -   CSTE_BRAND_PRODUCTS: 9 SKUs
+2025-08-06 00:39:24,392 - INFO -   SHORT_PRODUCT_CODES: 1 SKUs
+2025-08-06 00:39:24,392 - INFO -   SHORT_MIXED_CODES: 1 SKUs
+2025-08-06 00:39:24,392 - INFO -   HANDICRAFT_PRODUCTS: 1 SKUs
+2025-08-06 00:39:24,392 - INFO -   NUMERIC_PRODUCT_TYPE_78: 1 SKUs
+2025-08-06 00:39:24,395 - INFO - Processed 64 records with 100.0% success rate
+2025-08-06 00:39:24,415 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:24] "POST /upload HTTP/1.1" 200 -
+2025-08-06 00:39:24,438 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:24] "[36mGET /static/js/main.js HTTP/1.1[0m" 304 -
+2025-08-06 00:39:24,439 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:24] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-08-06 00:39:38,613 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:38] "GET /ai-chat HTTP/1.1" 200 -
+2025-08-06 00:39:41,533 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 00:39:43,105 - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-08-06 00:39:43,112 - INFO - 127.0.0.1 - - [06/Aug/2025 00:39:43] "POST /api/ai-query HTTP/1.1" 200 -
+2025-08-06 00:40:05,634 - INFO - 127.0.0.1 - - [06/Aug/2025 00:40:05] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
