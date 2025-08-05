@@ -1,0 +1,15 @@
+cat > render.yaml << 'EOF'
+services:
+  - type: web
+    name: wms-app
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: FLASK_ENV
+        value: production
+      - key: PORT
+        value: 5000
+EOF
