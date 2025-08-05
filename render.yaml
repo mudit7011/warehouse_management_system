@@ -1,4 +1,3 @@
-cat > render.yaml << 'EOF'
 services:
   - type: web
     name: wms-app
@@ -12,4 +11,3 @@ services:
         value: production
       - key: PORT
         value: 5000
-EOF
