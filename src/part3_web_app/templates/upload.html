@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %}Upload Data - WMS{% endblock %} {%
+block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h3>Upload Sales Data</h3>
+        <p class="mb-0 text-muted">
+          Upload your CSV or Excel files for processing
+        </p>
+      </div>
+      <div class="card-body">
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+          <div class="mb-3">
+            <label for="file" class="form-label">Select File</label>
+            <input
+              type="file"
+              class="form-control"
+              id="file"
+              name="file"
+              accept=".csv,.xlsx,.xls"
+              required
+            />
+            <div class="form-text">
+              Supported formats: CSV, Excel (.xlsx, .xls)
+            </div>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-upload"></i> Upload and Process
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-4" id="progressContainer" style="display: none">
+          <div class="progress">
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              style="width: 0%"
+            ></div>
+          </div>
+          <p class="mt-2 text-center">Processing your file...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mt-4">
+      <div class="card-header">
+        <h5>File Requirements</h5>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>File must be in CSV or Excel format (.csv, .xlsx, .xls)</li>
+          <li>Maximum file size: 16MB</li>
+          <li>Required columns: SKU or Product identifier</li>
+          <li>Optional columns: Quantity, Price, Date, Marketplace</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  document
+    .getElementById("uploadForm")
+    .addEventListener("submit", function (e) {
+      document.getElementById("progressContainer").style.display = "block";
+      document.querySelector(".btn").disabled = true;
+    });
+</script>
+{% endblock %}

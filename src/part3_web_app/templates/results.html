@@ -1,0 +1,160 @@
+{% extends "base.html" %} 
+{% block title %}Processing Results - WMS{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <h2>Processing Results</h2>
+    {% if original_filename %}
+    <p class="text-muted">Results for: {{ original_filename }}</p>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-3">
+    <div class="card bg-primary text-white">
+      <div class="card-body">
+        <h4>{{ results.total_records }}</h4>
+        <p>Total Records</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-success text-white">
+      <div class="card-body">
+        <h4>{{ results.mapped_records }}</h4>
+        <p>Successfully Mapped</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-warning text-white">
+      <div class="card-body">
+        <h4>{{ results.unmapped_records }}</h4>
+        <p>Unmapped Records</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-info text-white">
+      <div class="card-body">
+        <h4>{{ "%.1f"|format(results.success_rate) }}%</h4>
+        <p>Success Rate</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if ai_synced %}
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="alert alert-success">
+      <h5><i class="fas fa-check-circle"></i> AI System Ready!</h5>
+      <p class="mb-2">
+        Your data has been synced with the AI assistant. You can now query your
+        actual data!
+      </p>
+      <a href="/ai-chat" class="btn btn-sm btn-success">
+        <i class="fas fa-robot"></i> Try AI Assistant Now
+      </a>
+    </div>
+  </div>
+</div>
+{% elif ai_enabled %}
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="alert alert-warning">
+      <h5><i class="fas fa-exclamation-triangle"></i> Sync Required</h5>
+      <p class="mb-2">
+        Your data is processed but not yet synced with the AI system.
+      </p>
+      <a href="/sync-ai-data" class="btn btn-sm btn-warning">
+        <i class="fas fa-sync"></i> Sync with AI Now
+      </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="row mb-4">
+  <div class="col-12">
+    <div class="alert alert-info">
+      <h5><i class="fas fa-magic"></i> Intelligent Auto-Mapping Applied!</h5>
+      <p class="mb-2">
+        Your data has been automatically analyzed and categorized using
+        AI-powered pattern recognition.
+      </p>
+      <a href="/mapping-summary" class="btn btn-sm btn-outline-info">
+        <i class="fas fa-chart-pie"></i> View Detailed Mapping Summary
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h5>Processed Data Preview</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          {% if table_html %} 
+            {{ table_html|safe }} 
+          {% else %}
+            <p>No data to display</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Top Products</h5>
+      </div>
+      <div class="card-body">
+        {% for product, count in results.top_products.items() %}
+        <div class="d-flex justify-content-between mb-2">
+          <span>{{ product }}</span>
+          <span class="badge bg-primary">{{ count }}</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-header">
+        <h5>Actions</h5>
+      </div>
+      <div class="card-body">
+        <a
+          href="{{ url_for('dashboard') }}"
+          class="btn btn-secondary w-100 mb-2"
+        >
+          <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+        {% if filename %}
+        <a href="/download/{{ filename }}" class="btn btn-success w-100 mb-2">
+          <i class="fas fa-download"></i> Download Results
+        </a>
+        {% endif %}
+        <button class="btn btn-primary w-100" onclick="uploadAnother()">
+          <i class="fas fa-upload"></i> Upload Another File
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+  function uploadAnother() {
+    window.location.href = "{{ url_for('upload_page') }}";
+  }
+</script>
+{% endblock %}

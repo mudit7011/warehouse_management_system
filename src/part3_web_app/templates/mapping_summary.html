@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapping Summary - WMS</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="fas fa-warehouse"></i> WMS
+        </a>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12">
+          <h2>Intelligent Mapping Summary</h2>
+          <p class="text-muted">Auto-generated SKU categorization results</p>
+        </div>
+      </div>
+
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <div class="card bg-primary text-white">
+            <div class="card-body">
+              <h4>{{ summary.total_categories }}</h4>
+              <p>Total Categories</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-success text-white">
+            <div class="card-body">
+              <h4>{{ summary.auto_generated_categories }}</h4>
+              <p>Auto-Generated</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-info text-white">
+            <div class="card-body">
+              <h4>{{ summary.predefined_categories }}</h4>
+              <p>Predefined</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5>Category Details</h5>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>SKU Count</th>
+                      <th>Type</th>
+                      <th>Sample SKUs</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for category, details in summary.category_details.items()
+                    %}
+                    <tr>
+                      <td><strong>{{ category }}</strong></td>
+                      <td>
+                        <span class="badge bg-primary"
+                          >{{ details.sku_count }}</span
+                        >
+                      </td>
+                      <td>
+                        {% if details.is_auto_generated %}
+                        <span class="badge bg-success">Auto-Generated</span>
+                        {% else %}
+                        <span class="badge bg-secondary">Predefined</span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        <small class="text-muted">
+                          {{ details.sample_skus | join(', ') }} {% if
+                          details.sku_count > 3 %}...{% endif %}
+                        </small>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col-12">
+          <a href="/" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+          </a>
+          <a href="/upload" class="btn btn-primary">
+            <i class="fas fa-upload"></i> Upload Another File
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
