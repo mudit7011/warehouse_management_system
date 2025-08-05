@@ -4,7 +4,7 @@ A comprehensive Warehouse Management System built with Python, Flask, and AI-pow
 
 ## Loom Video Link
 
-https://www.loom.com/share/7440994520d44554849d0b6458ee2278?sid=26b73f36-f8df-4e8f-bf50-bd191c3d1b7f
+https://www.loom.com/share/8d6622b6ca2d441da97c17f89200168c?sid=e1ddd997-3935-4f69-b4ae-32966a4c5ece
 
 ## Features
 
