@@ -21,4 +21,4 @@ ENV FLASK_APP=src/part3_web_app/app.py
 ENV FLASK_ENV=production
 
 # Use gunicorn for production
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 run:app
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 "src.part3_web_app.app:app"
