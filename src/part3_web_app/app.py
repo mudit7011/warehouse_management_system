@@ -1,4 +1,3 @@
-# src/part3_web_app/app.py
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash
 import pandas as pd
 import os
@@ -7,11 +6,9 @@ from werkzeug.utils import secure_filename
 import json
 from datetime import datetime
 
-# Import our custom modules with error handling
 import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-# Import with error handling
 try:
     from part1_data_cleaning.sku_mapper import SKUMapper
     sku_mapper_available = True
@@ -41,20 +38,18 @@ except ImportError as e:
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 app.config['UPLOAD_FOLDER'] = 'uploads'
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
-# Initialize components with error handling
 sku_mapper = None
 if sku_mapper_available:
     try:
         sku_mapper = SKUMapper()
-        sku_mapper.load_master_mappings()  # Load default mappings
-        print("✅ SKU Mapper initialized successfully")
+        sku_mapper.load_master_mappings() 
+        print("SKU Mapper initialized successfully")
     except Exception as e:
-        print(f"❌ Failed to initialize SKU Mapper: {e}")
+        print(f" Failed to initialize SKU Mapper: {e}")
         sku_mapper_available = False
 
-# Initialize AI processor (requires GROQ_API_KEY environment variable)
 ai_processor = None
 sql_processor = None
 ai_enabled = False
@@ -63,17 +58,15 @@ if ai_modules_available:
     try:
         ai_processor = AIQueryProcessor()
         sql_processor = SQLQueryProcessor()
-        # Insert sample data for testing
         sql_processor.insert_sample_data()
         ai_enabled = True
-        print("✅ AI features initialized successfully")
+        print("AI features initialized successfully")
     except Exception as e:
-        print(f"❌ AI features disabled: {e}")
+        print(f"AI features disabled: {e}")
         ai_processor = None
         sql_processor = None
         ai_enabled = False
 
-# Ensure upload folder exists
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/')
@@ -122,33 +115,28 @@ def upload_file():
         file.save(filepath)
         
         try:
-            # Process the file
             if filename.lower().endswith('.csv'):
                 df = pd.read_csv(filepath)
             else:
                 df = pd.read_excel(filepath)
             
-            # Process with SKU mapper
             processed_df = sku_mapper.process_sales_data(df)
             
-            # 🔥 SYNC WITH AI DATABASE (if available)
             ai_synced = False
             if ai_enabled and sql_processor and hasattr(sql_processor, 'sync_with_uploaded_data'):
                 try:
                     ai_synced = sql_processor.sync_with_uploaded_data(sku_mapper)
                     if ai_synced:
-                        flash('✅ Data synced with AI system - you can now query your actual data!')
+                        flash(' Data synced with AI system - you can now query your actual data!')
                     else:
-                        flash('⚠️ Data processed but AI sync failed')
+                        flash('Data processed but AI sync failed')
                 except Exception as e:
-                    flash(f'⚠️ AI sync error: {str(e)}')
+                    flash(f' AI sync error: {str(e)}')
             
-            # Save processed data
             processed_filename = f"processed_{filename}"
             processed_filepath = os.path.join(app.config['UPLOAD_FOLDER'], processed_filename)
             processed_df.to_csv(processed_filepath, index=False)
             
-            # Generate results summary
             results = generate_processing_results(processed_df)
             
             return render_template('results.html', 
@@ -188,7 +176,6 @@ def add_mapping_web():
         flash('Please provide both MSKU and SKU variants.')
         return redirect(url_for('view_mappings'))
     
-    # Parse SKUs (comma or newline separated)
     skus = [sku.strip() for sku in skus_text.replace('\n', ',').split(',') if sku.strip()]
     
     if not skus:
@@ -207,7 +194,6 @@ def add_sample_mappings():
         flash('SKU Mapper is not available.')
         return redirect(url_for('dashboard'))
     
-    # Based on your uploaded data (the SKUs I saw in your screenshot)
     sample_mappings = {
         'WIRELESS_HEADPHONES': ['X0024AAU4D', 'X0024A2EYH', 'WH001', 'HEADPHONE_BT'],
         'PHONE_ACCESSORIES': ['X0027Z4S1L', 'X0026EWNTH', 'X0027375Z'],
@@ -217,13 +203,11 @@ def add_sample_mappings():
         'MOBILE_ACCESSORIES': ['X0026EWNTH', 'X0027375Z', 'X0025L96YB'],
         'TECH_GADGETS': ['X001VSXA73', 'X001W7Q1M9', 'X001W7X2XZ'],
         'DEVICE_ACCESSORIES': ['X0026ER40F'],
-        # Add more generic mappings
         'GOLDEN_APPLE': ['GLD', 'GOLD_APPLE', 'Golden_Apple_001'],
         'SILVER_RING': ['SLV_RNG', 'SILVER_RING', 'Ring_Silver'],
         'BLUE_JEANS': ['BLU_JNS', 'BLUE_JEANS', 'Jeans_Blue_M']
     }
     
-    # Add to existing mappings
     sku_mapper.master_mappings.update(sample_mappings)
     
     flash(f'Added {len(sample_mappings)} sample mappings successfully! Now re-upload your data to see better results.')
@@ -236,7 +220,6 @@ def clear_mappings():
         flash('SKU Mapper is not available.')
         return redirect(url_for('dashboard'))
     
-    # Reset to default mappings
     sku_mapper.load_master_mappings()
     flash('Mappings reset to defaults.')
     return redirect(url_for('view_mappings'))
@@ -279,9 +262,9 @@ def sync_ai_data():
         if hasattr(sql_processor, 'sync_with_uploaded_data'):
             success = sql_processor.sync_with_uploaded_data(sku_mapper)
             if success:
-                flash('✅ Successfully synced your data with AI system!')
+                flash('Successfully synced your data with AI system!')
             else:
-                flash('❌ Failed to sync data with AI system.')
+                flash('Failed to sync data with AI system.')
         else:
             flash('AI sync functionality not available.')
     except Exception as e:
@@ -289,7 +272,6 @@ def sync_ai_data():
     
     return redirect(url_for('dashboard'))
 
-# API Routes
 @app.route('/api/ai-query', methods=['POST'])
 def api_ai_query():
     """Process AI query"""
@@ -308,8 +290,7 @@ def api_ai_query():
                 'success': False,
                 'error': 'Query cannot be empty'
             }), 400
-        
-        # Process the query with AI
+
         result = ai_processor.process_user_query(query)
         
         return jsonify(result)
@@ -338,8 +319,7 @@ def api_sql_query():
                 'success': False,
                 'error': 'SQL query cannot be empty'
             }), 400
-        
-        # Execute the SQL query
+
         df, success, error_msg = sql_processor.execute_query(sql_query)
         
         if not success:
@@ -374,14 +354,11 @@ def api_process_data():
     
     try:
         data = request.get_json()
-        
-        # Convert JSON data to DataFrame
+
         df = pd.DataFrame(data.get('data', []))
-        
-        # Process with SKU mapper
+
         processed_df = sku_mapper.process_sales_data(df)
-        
-        # Convert back to JSON
+
         result = {
             'success': True,
             'data': processed_df.to_dict('records'),
@@ -432,7 +409,6 @@ def view_results(filename):
         filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         df = pd.read_csv(filepath)
         
-        # Convert to HTML table for display
         table_html = df.head(100).to_html(classes='table table-striped', table_id='results-table')
         
         results = generate_processing_results(df)
@@ -456,7 +432,6 @@ def download_file(filename):
         flash(f'Error downloading file: {str(e)}')
         return redirect(url_for('dashboard'))
 
-# Utility Functions
 def allowed_file(filename):
     """Check if file extension is allowed"""
     ALLOWED_EXTENSIONS = {'csv', 'xlsx', 'xls'}
@@ -466,17 +441,13 @@ def generate_processing_results(df):
     """Generate processing results summary with intelligent mapping info"""
     total_records = len(df)
     
-    # Check if MSKU column exists
     if 'MSKU' in df.columns:
-        # Handle NaN values and convert to string
         df['MSKU'] = df['MSKU'].fillna('UNCATEGORIZED_UNKNOWN').astype(str)
         mapped_records = len(df[~df['MSKU'].str.startswith('UNCATEGORIZED_', na=False)])
         unmapped_records = total_records - mapped_records
         
-        # Get top products
         top_products = df['MSKU'].value_counts().head(10).to_dict()
         
-        # Get intelligent category insights
         category_insights = {}
         for category, count in df['MSKU'].value_counts().items():
             if not category.startswith('UNCATEGORIZED_'):
@@ -499,7 +470,6 @@ def generate_processing_results(df):
         top_products = {}
         category_insights = {}
     
-    # Calculate success rate
     success_rate = (mapped_records / total_records * 100) if total_records > 0 else 0
     
     return {
@@ -512,7 +482,6 @@ def generate_processing_results(df):
         'is_intelligent_mapping': True
     }
 
-# Error Handlers
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('error.html', 
@@ -525,7 +494,6 @@ def internal_error(error):
                          error_code=500, 
                          error_message="Internal server error"), 500
 
-# Health Check
 @app.route('/health')
 def health_check():
     """Health check endpoint"""
@@ -540,23 +508,23 @@ def health_check():
     })
 
 if __name__ == '__main__':
-    print("🚀 Starting Warehouse Management System...")
-    print(f"📊 SKU Mapper Available: {sku_mapper_available}")
-    print(f"🗄️  Baserow Available: {baserow_available}")
-    print(f"🤖 AI Features Available: {ai_enabled}")
+    print("Starting Warehouse Management System...")
+    print(f"SKU Mapper Available: {sku_mapper_available}")
+    print(f" Baserow Available: {baserow_available}")
+    print(f" AI Features Available: {ai_enabled}")
     
     if not ai_enabled:
-        print("💡 To enable AI features:")
+        print(" To enable AI features:")
         print("   1. Get a free API key from: https://console.groq.com/")
         print("   2. Set environment variable: export GROQ_API_KEY=your_key_here")
         print("   3. Or add it to your .env file")
     
-    print(f"\n🌐 Access your WMS at:")
-    print(f"   📊 Dashboard: http://127.0.0.1:5001/")
-    print(f"   📤 Upload Data: http://127.0.0.1:5001/upload")
-    print(f"   🗺️  Manage Mappings: http://127.0.0.1:5001/mappings")
+    print(f"\n Access your WMS at:")
+    print(f"   Dashboard: http://127.0.0.1:5001/")
+    print(f"   Upload Data: http://127.0.0.1:5001/upload")
+    print(f"   Manage Mappings: http://127.0.0.1:5001/mappings")
     if ai_enabled:
-        print(f"   🤖 AI Assistant: http://127.0.0.1:5001/ai-chat")
-    print(f"   🔗 Quick Sample Mappings: http://127.0.0.1:5001/add-sample-mappings")
+        print(f"   AI Assistant: http://127.0.0.1:5001/ai-chat")
+    print(f"   Quick Sample Mappings: http://127.0.0.1:5001/add-sample-mappings")
     
     app.run(debug=True, host='0.0.0.0', port=5001)

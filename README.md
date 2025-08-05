@@ -2,6 +2,10 @@
 
 A comprehensive Warehouse Management System built with Python, Flask, and AI-powered data processing capabilities using Groq API.
 
+## Loom Video Link
+
+
+
 ## Features
 
 ### Part 1: Data Cleaning and Management
@@ -46,5 +50,34 @@ A comprehensive Warehouse Management System built with Python, Flask, and AI-pow
 
 1. **Clone the repository**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/mudit7011/warehouse_management_system.git
    cd warehouse-management-system
+
+
+### Usage Guide
+1. **Upload Data**
+-Navigate to the dashboard
+-Click "Upload File" or drag & drop your CSV/Excel file
+-The system will automatically process and map SKUs to Master SKUs
+2. **View Results**
+-Processing Results: View mapping statistics and success rates
+-Data Preview: See processed data with assigned MSKUs
+-Top Products: View most frequent product categories
+3. **AI-Powered Queries**
+-After uploading data, access the AI chat feature:
+
+Example queries:
+
+"Show me top selling products"
+"Create a bar chart of sales by marketplace"
+"What's the current inventory level?"
+"Generate a pie chart of product categories"
+
+4. **Start the script**
+-Run this file in your terminal:
+
+```bash
+
+python src/part3_web_app/app.py
+
+```
