@@ -1,4 +1,3 @@
-cat > Dockerfile << 'EOF'
 FROM python:3.9-slim
 
 WORKDIR /app
@@ -23,4 +22,3 @@ ENV FLASK_ENV=production
 
 # Use gunicorn for production
 CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 run:app
-EOF
